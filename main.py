@@ -1,13 +1,13 @@
-listOfJobs = [1, 2, 3]
+listOfJobs = ["Butt", "Stuff", "butt stuff"]
 
 
-def print_test():
-    print(listOfJobs)
+def new_file():
+    file = open("List Of Jobs", "w+")
+    for i in listOfJobs:
+        i = i + " "
+        file.write(i)
+    file.close()
 
-    #def new_file(self):
-     #   file = open(listOfJobs)
-     #   file.close()
-#doubly test
 
 if __name__ == '__main__':
-    print_test()
+    new_file()
