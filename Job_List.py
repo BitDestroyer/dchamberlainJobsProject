@@ -24,6 +24,7 @@ def read_list(file):
 def word_check():
     for i in listOfJobs:
         if i == "job":
+            # looking forward to seeing if this line gives you a flake8 error on github
             results = True
 
 
