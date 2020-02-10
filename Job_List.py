@@ -1,4 +1,8 @@
+class Jobs:
+
+
 import urllib
+import json
 from urllib import request
 
 # including the url and variable decleration
@@ -29,7 +33,7 @@ def word_check():
 
 # this function is to grab the data from the url and make it a string
 def json_converter():
-    return str(urllib.request.urlopen(url).read().decode().split())
+    return json.dumps(urllib.request.urlopen(url).read().decode())
 
 
 def test_job_list_length():
