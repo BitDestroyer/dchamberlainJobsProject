@@ -1,53 +1,45 @@
+import requests
+
+
 class Jobs:
 
+    # this function is to open a new file for storing data
+    def __init__(self):
+        self.url = ["https://jobs.github.com/positions", "https://jobs.github.com/positions?page=2",
+                    "https://jobs.github.com/positions?page=4",
+                    "https://jobs.github.com/positions?page=5"]
+        self.listOfJobs = []
+        self.results = False
 
-import urllib
-import json
-from urllib import request
+    def new_file(self):
+        self.file = open("List_Of_Jobs", "w+")
+        for i in self.listOfJobs:
+            self.write_list(list.append(i.text))
+        self.file.close()
 
-# including the url and variable decleration
-url = "https://jobs.github.com/positions.json?&page=0"
-listOfJobs = []
-results = False
+    # this will read off the list of data in loop manor
+    def write_list(self):
+        for j in self.url:
+            print(j)
+            response = requests.get(j)
+            if response == 200:
+                newJobList.webpages = requests.get(j).json()
+                newJobList.listOfJobs.append(newJobList.webpages)
+                newJobList.new_file()
+            else:
+                print("no response from github\n")
 
-
-# this function is to open a new file for storing data
-def new_file():
-    file = open("List_Of_Jobs", "w+")
-    read_list(file)
-    file.close()
-
-
-# this will read off the list of data in loop manor
-def read_list(file):
-    for i in listOfJobs:
-        i = i + " " + "\n"
-        file.write(i)
-
-
-def word_check():
-    for i in listOfJobs:
-        if i == "job":
-            results = True
-
-
-# this function is to grab the data from the url and make it a string
-def json_converter():
-    return json.dumps(urllib.request.urlopen(url).read().decode())
-
-
-def test_job_list_length():
-    assert len(listOfJobs) >= 100
-
-
-def test_List_Of_Jobs_contain():
-    word_check()
-    assert results == True
+    def word_check(self):
+        for i in newJobList.listOfJobs:
+            if i == "job":
+                results = True
 
 
 # a classic main to run all the functions
 if __name__ == '__main__':
-    listOfJobs = [json_converter()]
-    new_file()
+    newJobList = Jobs()
+    webpages = []
+    listOfJobs = []
+    newJobList.write_list()
     # this print is for my own sanity to make sure the program works
-    print(listOfJobs)
+    print("end of sprint 1")
