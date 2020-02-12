@@ -6,5 +6,5 @@ def test_job_list_length():
 
 
 def test_List_Of_Jobs_contain():
-    Job_List.word_check()
+    Job_List.listOfJobs.word_check()
     assert Job_List.results == True
