@@ -1,20 +1,19 @@
-import Job_List
 import sqlite3
-from typing import Tuple
 import xml.etree.ElementTree as ET
 
 
-def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
+def open_db(filename: str):
     connection = sqlite3.connect(filename)
     return connection
 
 
 def setup_db(cursor):
-    cursor.execute('''CREATE TABLE IF NOT EXISTS jobs(title TEXT, description TEXT);''')
+    cursor.execute('CREATE TABLE IF NOT EXISTS jobs(title TEXT, description TEXT, location TEXT)')
 
 
-def store_in_db(cursor, title, description):
-    cursor.execute(f'''INSERT INTO jobs (title, description) VALUES (?, ?)''', (str(title),str(description),))
+def store_in_db(cursor, title, location, description):
+    cursor.execute('INSERT INTO jobs (title, location, description) VALUES (?, ?, ?)',
+                   (str(title), str(location), str(description)))
 
 
 def parse_xml(cursor, xmlfile):
@@ -27,8 +26,9 @@ def parse_xml(cursor, xmlfile):
     # iterate news items
     for item in root.findall('./channel/item'):
         title = item.find('./title')
+        location = str(title.text).rpartition('(')[-1].strip(')')
         description = item.find('./description')
-        store_in_db(cursor, title.text, description.text)
+        store_in_db(cursor, title.text, location, description.text)
 
 
 con = open_db("jobs.db")
