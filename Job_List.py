@@ -5,29 +5,26 @@ class Jobs:
 
     # this function is to open a new file for storing data
     def __init__(self):
-        self.url = ["https://jobs.github.com/positions", "https://jobs.github.com/positions?page=2",
-                    "https://jobs.github.com/positions?page=4",
-                    "https://jobs.github.com/positions?page=5"]
+        self.url = ["https://stackoverflow.com/jobs/feed"]
         self.listOfJobs = []
         self.results = False
 
-    def new_file(self):
-        self.file = open("List_Of_Jobs", "w+")
-        for i in self.listOfJobs:
-            self.write_list(list.append(i.text))
-        self.file.close()
+    def save(self):
+        if self.listOfJobs:
+            with open('list_of_jobs.xml', 'wb') as file:
+                for i in self.listOfJobs:
+                    file.write(i)
 
     # this will read off the list of data in loop manor
     def write_list(self):
         for j in self.url:
             print(j)
             response = requests.get(j)
-            if response == 200:
-                newJobList.webpages = requests.get(j).json()
-                newJobList.listOfJobs.append(newJobList.webpages)
-                newJobList.new_file()
+            if response.status_code == 200:
+                self.listOfJobs.append(response.content)
             else:
-                print("no response from github\n")
+                print("no response from server\n")
+        self.save()
 
     def word_check(self):
         for i in newJobList.listOfJobs:
@@ -38,8 +35,6 @@ class Jobs:
 # a classic main to run all the functions
 if __name__ == '__main__':
     newJobList = Jobs()
-    webpages = []
-    listOfJobs = []
     newJobList.write_list()
     # this print is for my own sanity to make sure the program works
     print("end of sprint 1")
