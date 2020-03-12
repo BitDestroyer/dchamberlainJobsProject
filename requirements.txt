@@ -1,0 +1,15 @@
+install and run directions:
+please install opencage, plotly, and requests
+pip install opencage
+pip install plotly
+pip install requests
+
+Please also be sure Python is up to date on 3.6
+
+Flak 8, and gradle are also used in this project
+
+The following run instructions can also be found in the readme.
+Run order
+Job_list.py
+Job_DB.py - wait several minutes to complete the run
+job_plotter.py
